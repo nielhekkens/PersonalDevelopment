@@ -389,7 +389,8 @@ var UIController = (function(){
 			});
 		},
 
-		getDOMstrings: function(){ // Set the private object to public
+		// Set the private object to public
+		getDOMstrings: function(){
 
 			return DOMstrings;
 		}
