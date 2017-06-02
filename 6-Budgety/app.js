@@ -241,6 +241,16 @@ var UIController = (function(){
 		return (type === 'exp' ? sign = '-' : sign = '+') + ' ' + int + '.' + dec;
 	};
 
+	// Create own forEach function, that can go through a node list.
+	var nodeListForEach = function(list, callback) {
+
+		for(var i = 0; i < list.length; i++){
+
+			// callback becomes the function of the second parameter nodeListForEach and gets executed each iteration.
+			callback(list[i], i);
+		}
+	};
+
 	return{ // this return makes it possible for the other modules to call the methods
 
 		// created method which returns the values from the input fields.
@@ -366,16 +376,6 @@ var UIController = (function(){
 			// Select all nodes with the class 'item__percentage'. Outputs a node list.
 			var fields = document.querySelectorAll(DOMstrings.expensesPercLabel);
 
-			// Create own forEach function, that can go through a node list.
-			var nodeListForEach = function(list, callback) {
-
-				for(var i = 0; i < list.length; i++){
-
-					// callback becomes the function of the second parameter nodeListForEach and gets executed each iteration.
-					callback(list[i], i);
-				}
-			};
-
 			//
 			nodeListForEach(fields, function(current, index){
 
@@ -401,7 +401,21 @@ var UIController = (function(){
 			month = now.getMonth();
 
 			document.querySelector(DOMstrings.dateLabel).textContent = months[month] + ' ' + year;
+		},
 
+		changedType: function(){
+
+			var fields = document.querySelectorAll(
+				DOMstrings.inputType + ',' +
+				DOMstrings.inputDescription + ',' +
+				DOMstrings.inputValue);
+
+			nodeListForEach(fields, function(cur){
+
+				cur.classList.toggle('red-focus');
+			});
+
+			document.querySelector(DOMstrings.inputButton).classList.toggle('red');
 		},
 
 		// Set the private object to public
@@ -434,6 +448,8 @@ var controller = (function(budgetCtrl, UICtrl){
 
 		// Add event listener to the container div, by using Event delegation, because the list items are non-existing in the DOM yet.
 		document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+
+		document.querySelector(DOM.inputType).addEventListener('change', UICtrl.changedType);
 	};
 
 	var updateBudget = function(){
