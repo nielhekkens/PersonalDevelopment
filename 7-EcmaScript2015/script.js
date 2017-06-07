@@ -1,3 +1,4 @@
+////////////////////////////////////////////////////////////////////////////////
 // Lecture 95: let and const
 
 // ES5
@@ -19,6 +20,7 @@
 // console.log(age6);
 
 // ES5
+/*
 function driversLicense5 (passedTest){
 
 	if(passedTest){
@@ -57,3 +59,35 @@ for (let i = 0; i < 5; i++){
 }
 
 console.log(i);
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 96: blocks and IIFEs
+
+// Const and Let defined inside a block are not accessible from the outside.
+// This is good for data privacy.
+
+// A block is created by using curly brackets. If or while or for are not needed.
+
+// ES6
+/*
+{
+
+	const a = 1;
+	let b = 2;
+	var c = 3;
+}
+
+//console.log(a + b);
+console.log(c);
+
+//ES5
+(function(){
+
+	var c = 3;
+})();
+
+//console.log(c);
+*/
+////////////////////////////////////////////////////////////////////////////////
