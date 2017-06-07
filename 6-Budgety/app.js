@@ -266,7 +266,7 @@ var UIController = (function(){
 
 		addListItem: function(obj, type){
 
-			var htm, newHtml, element;
+			var html, newHtml, element;
 
 			// 1 Create HTML string with placeholder text
 			if(type === 'inc'){
