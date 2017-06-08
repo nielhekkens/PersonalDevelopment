@@ -91,3 +91,64 @@ console.log(c);
 //console.log(c);
 */
 ////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 97: Strings in ES6
+/*
+let firstName = 'John';
+let lastName =  'Smith';
+const yearOfBirth = 1990;
+function calcAge(year){
+
+	return 2016 - year;
+}
+
+// ES5
+console.log('This is ' + firstName + ' ' + lastName + '. He was born in ' + yearOfBirth +
+	'. Today, he is ' + calcAge(yearOfBirth) + ' years old.');
+
+// ES6
+// Template literals
+console.log(`This is ${firstName} ${lastName}. He was born in ${yearOfBirth}. Today, he is ${calcAge(yearOfBirth)} years old.`);
+
+const n = `${firstName} ${lastName}`;
+console.log(n.startsWith('J')); // new string method startsWith
+console.log(n.endsWith('th')); // new string method endsWith
+console.log(n.includes('oh')); // new string method includes
+console.log(`${firstName} `.repeat(5));
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 98: Arrow functions (basics)
+
+const years = [1990, 1965, 1982, 1937];
+
+// ES5
+var ages5 = years.map(function(el){
+
+	return 2016 - el;
+});
+
+console.log(ages5);
+
+// ES6
+// with 1 argument
+let ages6 = years.map(el => 2016 - el);
+console.log(ages6);
+
+// with multiple arguments
+ages6 = years.map((el, index) => `Age element ${index + 1}: ${2016 - el}.`);
+console.log(ages6);
+
+// multiple arguments and multiple lines of code.
+// require curly brackets and return keyword.
+ages6 = years.map((el, index) => {
+
+	const now = new Date().getFullYear();
+	const age = now - el;
+	return `Age element ${index + 1}: ${2016 - el}.`;
+});
+console.log(ages6);
+
+////////////////////////////////////////////////////////////////////////////////
