@@ -121,7 +121,7 @@ console.log(`${firstName} `.repeat(5));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Lecture 98: Arrow functions (basics)
-
+/*
 const years = [1990, 1965, 1982, 1937];
 
 // ES5
@@ -150,5 +150,96 @@ ages6 = years.map((el, index) => {
 	return `Age element ${index + 1}: ${2016 - el}.`;
 });
 console.log(ages6);
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 99: Arrow functions (lexical 'this' keyword)
+
+// ES5
+var box5 = {
+	color: 'green',
+	position: 1,
+	clickMe: function(){
+
+		var self = this;
+		document.querySelector('.green').addEventListener('click', function(){
+
+			// Because the this keyword is called within this anonymous function, 'this' points
+			// towards the global object (in this case the window).
+			var str = 'This is box number ' + self.position + ' and it is ' + self.color;
+			alert(str);
+		});
+	}
+};
+
+//box5.clickMe();
+
+// ES6
+const box6 = {
+	color: 'green',
+	position: 1,
+	clickMe: function(){
+
+		document.querySelector('.green').addEventListener('click', () => {
+
+			// In ES6 the 'this' keyword is shared from its surrounding.
+			// In this case: the object box6
+			var str = 'This is box number ' + this.position + ' and it is ' + this.color;
+			alert(str);
+		});
+	}
+};
+
+//box6.clickMe();
+
+/*
+const box6b = {
+	color: 'green',
+	position: 1,
+	// in this example the arrow function shares the from its surrounding: the global object
+	// That's why it shows undefined again.
+	clickMe: () => {
+
+		document.querySelector('.green').addEventListener('click', () => {
+
+			// In ES6 the 'this' keyword remains pointing to the object in an
+			// arrow function.
+			var str = 'This is box number ' + this.position + ' and it is ' + this.color;
+			alert(str);
+		});
+	}
+};
+
+box6b.clickMe();
+*/
+
+function Person(name){
+
+	this.name = name;
+}
+
+// ES5
+Person.prototype.myFriends5 = function(friends){
+
+	var arr = friends.map(function(el){
+
+		return this.name + ' is friends with ' + el;
+	}.bind(this));
+
+	console.log(arr);
+};
+
+const friends = ['Bob', 'Jane', 'Mark'];
+new Person('John').myFriends5(friends);
+
+// ES6
+Person.prototype.myFriends6 = function(friends){
+
+	const arr = friends.map(el => `${this.name} is friends with ${el}`);
+	console.log(arr);
+};
+
+new Person('Jim').myFriends6(friends);
 
 ////////////////////////////////////////////////////////////////////////////////
