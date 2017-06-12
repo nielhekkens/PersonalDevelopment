@@ -285,7 +285,7 @@ console.log(retirement);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Lecture 101: Arrays
-
+/*
 const boxes = document.querySelectorAll('.box');
 
 // ES5
@@ -314,7 +314,7 @@ for(var i = 0; i < boxesArr5.length; i++){
 
 	boxesArr5[i].textContent = 'I changed to blue!';
 };
-*/
+*
 
 // ES6
 for (const cur of boxesArr6){
@@ -341,5 +341,44 @@ console.log(ages[full.indexOf(true)]);
 // findIndex and find
 console.log(ages.findIndex(cur => cur >= 18));
 console.log(ages.find(cur => cur >= 18));
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 102: Spread operator
+
+function addFourAges (a, b, c, d){
+
+	return a + b + c + d;
+}
+
+var sum1 = addFourAges(18, 30, 12, 21);
+console.log(sum1);
+
+// ES5
+var ages5 = [18, 30, 12, 21];
+
+// This will call addFourAges with the array ages5 as the arguments
+var sum2 = addFourAges.apply(null, ages5);
+console.log(sum2);
+
+// ES6
+// Spead operator takes the array and split them in the multiple arguments of the function.
+const sum3 = addFourAges(...ages5);
+console.log(sum3);
+
+// Combine two arrays to one big array, by using the spread operator.
+const familySmith = ['John', 'Jane', 'Mark'];
+const familyMiller = ['Mary', 'Bob', 'Ann'];
+
+const bigFamily = [...familySmith, ...familyMiller];
+console.log(bigFamily);
+
+// Spread operators also work on node lists
+const h = document.querySelector('h1');
+const boxes = document.querySelectorAll('.box');
+
+const all = [h, ...boxes];
+Array.from(all).forEach(cur => cur.style.color = 'purple');
 
 ////////////////////////////////////////////////////////////////////////////////
