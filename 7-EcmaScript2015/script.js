@@ -346,7 +346,7 @@ console.log(ages.find(cur => cur >= 18));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Lecture 102: Spread operator
-
+/*
 function addFourAges (a, b, c, d){
 
 	return a + b + c + d;
@@ -380,5 +380,140 @@ const boxes = document.querySelectorAll('.box');
 
 const all = [h, ...boxes];
 Array.from(all).forEach(cur => cur.style.color = 'purple');
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 103: Rest parameters
+/*
+//ES5
+function isFullAge5() {
+
+	// console.log(arguments); // This results in an object and not an array.
+
+	// Convert the object into an array.
+	var argsArr = Array.prototype.slice.call(arguments);
+
+	argsArr.forEach(function(cur){
+		console.log((2016 - cur) >= 18);
+	});
+}
+
+// isFullAge5(1990, 1999, 1965);
+// isFullAge5(1990, 1999, 1965, 2016, 1987);
+
+//ES6
+function isFullAge6(...years){
+
+	years.forEach(cur => console.log((2016 - cur) >= 18));
+}
+
+isFullAge6(1990, 1999, 1965, 2016, 1987);
+// The spread parameters converts the various parameters to an array
+
+
+//ES5
+function isFullAge5(limit) {
+
+	// console.log(arguments); // This results in an object and not an array.
+
+	// Convert the object into an array.
+	var argsArr = Array.prototype.slice.call(arguments, 1);
+
+	argsArr.forEach(function(cur){
+		console.log((2016 - cur) >= limit);
+	});
+}
+
+// isFullAge5(16, 1990, 1999, 1965);
+// isFullAge5(1990, 1999, 1965, 2016, 1987);
+
+//ES6
+function isFullAge6(limit, ...years){
+
+	years.forEach(cur => console.log((2016 - cur) >= limit));
+}
+
+isFullAge6(16, 1990, 1999, 1965, 2016, 1987);
+// The spread parameters converts the various parameters to an array
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 104: Default parameters
+/*
+// ES5
+function SmithPerson(firstName, yearOfBirth, lastName, nationality){
+
+	// Create default value for lastName when it's not specified.
+	lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+	nationality === undefined ? nationality = 'American' : nationality = nationality;
+
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.yearOfBirth = yearOfBirth;
+	this.nationality = nationality;
+}
+
+// ES6
+// In ES6 you can set the default values in the parameters.
+function SmithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = 'American'){
+
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.yearOfBirth = yearOfBirth;
+	this.nationality = nationality;
+}
+
+var john = new SmithPerson('John', 1990);
+var emily = new SmithPerson('Emily', 1983, 'Diaz', 'Spanish');
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 105: Maps
+
+const question = new Map();
+question.set('question', 'What is the official name of the latest major JavaScript version?');
+
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, 'Correct answer!');
+question.set(false, 'Wrong, please try again.');
+
+console.log(question.get('question'));
+
+// Check the length/size of the Map.
+// console.log(question.size);
+
+// Check if there is a key with a certain element.
+if(question.has(4)){
+
+	// Delete a key element from map.
+	// question.delete(4);
+}
+
+// Clear the whole Map.
+// question.clear();
+
+// Looping through the Map with forEach loop.
+//question.forEach((value, key) => console.log(`This is ${key}, and it's set to ${value}`));
+
+// Loop through the Map with for of loop.
+for(let [key, value] of question.entries()){
+
+	if(typeof(key) === 'number'){
+
+		console.log(`Answer ${key}: ${value}`);
+	}
+}
+
+const answer = parseInt(prompt('Write the correct answer'));
+
+// By this code you can get the correct answer without an if/else statement.
+console.log(question.get(answer === question.get('correct')));
 
 ////////////////////////////////////////////////////////////////////////////////
