@@ -472,7 +472,7 @@ var emily = new SmithPerson('Emily', 1983, 'Diaz', 'Spanish');
 
 ////////////////////////////////////////////////////////////////////////////////
 // Lecture 105: Maps
-
+/*
 const question = new Map();
 question.set('question', 'What is the official name of the latest major JavaScript version?');
 
@@ -515,5 +515,54 @@ const answer = parseInt(prompt('Write the correct answer'));
 
 // By this code you can get the correct answer without an if/else statement.
 console.log(question.get(answer === question.get('correct')));
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 106: Classes
+
+// ES5
+// Function constructor
+var Person5 = function(name, yearOfBirth, job){
+
+	this.name = name;
+	this.yearOfBirth = yearOfBirth;
+	this.job = job;
+};
+
+Person5.prototype.calculateAge = function(){
+
+	var age = new Date().getFullYear() - this.yearOfBirth;
+	console.log(age);
+};
+
+var john5 = new Person5('John', 1990, 'teacher');
+
+// ES6
+// Using class instead of function constructor
+class Person6{
+
+	constructor(name, yearOfBirth, job){
+
+		this.name = name;
+		this.yearOfBirth = yearOfBirth;
+		this.job = job;
+	}
+
+	calculageAge(){
+
+		const age = new Date().getFullYear() - this.yearOfBirth;
+		console.log(age);
+	}
+
+	static greeting(){
+
+		console.log('Hey there!');
+	}
+}
+
+const john6 = new Person6('John', 1990, 'teacher');
+
+Person6.greeting();
 
 ////////////////////////////////////////////////////////////////////////////////
