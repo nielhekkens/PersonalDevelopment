@@ -520,7 +520,7 @@ console.log(question.get(answer === question.get('correct')));
 
 ////////////////////////////////////////////////////////////////////////////////
 // Lecture 106: Classes
-
+/*
 // ES5
 // Function constructor
 var Person5 = function(name, yearOfBirth, job){
@@ -564,5 +564,87 @@ class Person6{
 const john6 = new Person6('John', 1990, 'teacher');
 
 Person6.greeting();
+*/
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// Lecture 107: Subclasses
+
+// ES5
+// Function constructor
+var Person5 = function(name, yearOfBirth, job){
+
+	this.name = name;
+	this.yearOfBirth = yearOfBirth;
+	this.job = job;
+};
+
+Person5.prototype.calculateAge = function(){
+
+	var age = new Date().getFullYear() - this.yearOfBirth;
+	console.log(age);
+};
+
+var Athlete5 = function(name, yearOfBirth, job, olympicGames, medals){
+
+	// Need to use Person.call
+	Person5.call(this, name, yearOfBirth, job);
+	this.olympicGames = olympicGames;
+	this.medals = medals;
+};
+
+// .create enables to set the prototype manually.
+// By doing this, the johnAthlete5 object can access the calculateAge method from the Person5 property.
+Athlete5.prototype = Object.create(Person5.prototype);
+
+Athlete5.prototype.wonMedal = function(){
+
+	this.medals++;
+	console.log(this.medals);
+};
+
+var johnAthlete5 = new Athlete5('John', 1990, 'swimmer', 3, 10);
+
+// *****************************************************************************
+// ES6
+// Using class instead of function constructor
+class Person6{
+
+	constructor(name, yearOfBirth, job){
+
+		this.name = name;
+		this.yearOfBirth = yearOfBirth;
+		this.job = job;
+	}
+
+	calculageAge(){
+
+		const age = new Date().getFullYear() - this.yearOfBirth;
+		console.log(age);
+	}
+
+	static greeting(){
+
+		console.log('Hey there!');
+	}
+}
+
+// Creating a new subclass Athlete by using "extends" keyword
+class Athlete6 extends Person6{
+
+	constructor(name, yearOfBirth, job, olympicGames, medals){
+
+		super(name, yearOfBirth, job);
+		this.olympicGames = olympicGames;
+		this.medals = medals;
+	}
+
+	wonMedal(){
+		this.medals++;
+		console.log(this.medals);
+	}
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
 
 ////////////////////////////////////////////////////////////////////////////////
