@@ -569,7 +569,7 @@ Person6.greeting();
 
 ////////////////////////////////////////////////////////////////////////////////
 // Lecture 107: Subclasses
-
+/*
 // ES5
 // Function constructor
 var Person5 = function(name, yearOfBirth, job){
@@ -646,5 +646,128 @@ class Athlete6 extends Person6{
 }
 
 const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+*/
+////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
+// Lecture 108: Coding challenge 5
+const Logic = (() => {
+	const parkMap = new Map();
+	const streetMap = new Map();
+
+	class Town{
+
+		constructor(name, yearOfOrigin){
+
+			this.name = name;
+			this.yearOfOrigin = yearOfOrigin;
+		}
+	}
+
+	class Park extends Town{
+
+		constructor(name, yearOfOrigin, trees, surface){
+
+			super(name, yearOfOrigin);
+			this.trees = trees;
+			this.surface = surface; //km2
+		}
+
+		treeDensity(){
+
+			const density = this.trees / this.surface;
+			console.log(`${this.name} has a tree density of ${density} trees per km2.`);
+		}
+	}
+
+	class Street extends Town{
+
+		constructor(name, yearOfOrigin, length, size = 3){
+
+			super(name, yearOfOrigin);
+			this.length = length;
+			this.size = size;
+		}
+
+		classifyStreet(){
+
+			const classification = new Map();
+			classification.set(1, 'tiny');
+			classification.set(2, 'small');
+			classification.set(3, 'normal');
+			classification.set(4, 'big');
+			classification.set(5, 'huge');
+
+			console.log(`${this.name}, built in ${this.yearOfOrigin}, is a ${classification.get(this.size)} street.`);
+		}
+	}
+
+	const allParks = [
+
+		new Park('Green Park', 1920, 949, 0.8),
+		new Park('National Park', 1945, 1310, 0.9),
+		new Park('Oak Park', 1930, 846, 0.6)
+	];
+
+	const allStreets = [
+		new Street('Ocean Avenue', 1999, 3,1),
+		new Street('1st Street', 1898, 4.1, 2),
+		new Street('Main Street', 1932, 6),
+		new Street('Forest Road', 1960, 8, 4)
+	];
+
+	function calc(arr){
+
+		// Calculate totals and average
+		const sum = arr.reduce((previous, current, index) => previous + current, 0);
+
+		return [sum, sum / arr.length];
+	}
+
+	function reportParks(p){
+
+		console.log('----- PARKS REPORT -----');
+
+		// Density
+		p.forEach(el => el.treeDensity());
+
+		// Avg age
+		const ages = p.map(el => new Date().getFullYear() - el.yearOfOrigin);
+		const [totalAge, avgAge] = calc(ages);
+
+		console.log(`Our ${p.length} parks have an average age of ${avgAge} years.`)
+
+		// Which park has more than x trees
+		const i = p.map(el => el.trees).findIndex(el => el >= 1000);
+
+		console.log(`${p[i].name} has more than 1000 trees.`)
+	}
+
+	function reportStreets(s){
+
+		console.log('----- STREETS REPORT -----');
+
+		// Total length of all streets and average length
+		const [totalLength, avgLength] = calc(s.map(el => el.length));
+		console.log(`Our ${s.length} streets have a total length of ${totalLength} km, with an average of ${avgLength} km.`);
+
+		s.forEach(el => el.classifyStreet());
+	}
+
+	return{
+		init(){
+
+			console.log('Application has started');
+
+			reportParks(allParks);
+			reportStreets(allStreets);
+		},
+
+		allParks,
+		allStreets
+	}
+})();
+
+Logic.init();
+
+
